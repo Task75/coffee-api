@@ -35,6 +35,10 @@ jobs:
        #category: "Security"
 
   build-and-push:
+    defaults:
+      run:
+        working-directory: ./CoffeeAPI
+        
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     needs: scan-secrets
@@ -54,12 +58,11 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build Docker image
-      working-directory: ./CoffeeAPI
+     
       run: |
         docker build -t ghcr.io/${{ github.repository }}/coffee-api:${{ github.sha }} .
 
     - name: Push Docker image
-      working-directory: ./CoffeeAPI
       run: |
         docker push ghcr.io/${{ github.repository }}/coffee-api:${{ github.sha }}
 
