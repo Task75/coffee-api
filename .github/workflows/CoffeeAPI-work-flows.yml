@@ -12,8 +12,12 @@ on:
 
 jobs:
   scan-secrets:
-    name: Scan code for secrets
+
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./CoffeeAPI
 
     steps:
     - name: Checkout code
