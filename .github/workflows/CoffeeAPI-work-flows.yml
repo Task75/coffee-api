@@ -15,6 +15,11 @@ jobs:
     name: Scan code for secrets
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./CoffeeAPI
+
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -28,6 +33,11 @@ jobs:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     needs: scan-secrets
+  
+    defaults:
+      run:
+        working-directory: ./CoffeeAPI
+
 
     steps:
     - name: Checkout code
