@@ -23,16 +23,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install gitleaks
-      run: |
-        curl -sSLO https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64
-        sudo chmod +x gitleaks-linux-amd64
-        sudo mv gitleaks-linux-amd64 /usr/local/bin/gitleaks
-
 
     - name: Scan code for secrets
-      run: |
-        gitleaks detect --source . --verbose
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
 
       #uses: github/codeql-action/analyze@v2
