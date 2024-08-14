@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "postgresql.fullname" . }}
+  labels:
+    {{- include "postgresql.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "postgresql.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        {{- include "postgresql.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "postgresql.serviceAccountName" . }}
+      containers:
+      - name: postgresql
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.postgresql.port }}
+        env:
+        - name: POSTGRES_USER
+          value: "{{ .Values.postgresql.username }}"
+        - name: POSTGRES_PASSWORD
+          value: "{{ .Values.postgresql.password }}"
+        - name: POSTGRES_DB
+          value: "{{ .Values.postgresql.database }}"
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ include "postgresql.fullname" . }}
+      resources:
+        {{ toYaml .Values.resources | indent 8 }}
+
+
+

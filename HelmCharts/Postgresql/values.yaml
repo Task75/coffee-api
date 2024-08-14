@@ -1,0 +1,28 @@
+image:
+  repository: bitnami/postgresql
+  tag: 13.4.0
+  pullPolicy: IfNotPresent
+
+postgresql:
+  username: myuser
+  password: mypassword
+  database: coffee_db
+  port: 5432
+
+service:
+  type: ClusterIP
+  port: 5432
+
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 8Gi
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,30 @@
+image:
+  repository: ghcr.io/<your-github-username>/coffee-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+container:
+  port:8080
+  
+service:
+  type: ClusterIP
+  port: 8080
+
+postgresql:
+  host: my-postgresql.default.svc.cluster.local
+  port: 5432
+  database: coffee_db
+  username: myuser
+  password: mypassword
+
+serviceAccount:
+  create: true
+  name: ""
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

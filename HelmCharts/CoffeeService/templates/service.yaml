@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "coffee-api.fullname" . }}
+  labels: 
+    {{- include "coffee-api.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/name: {{ include "coffee-api.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
