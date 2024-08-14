@@ -68,6 +68,9 @@ jobs:
         docker push ghcr.io/${{ github.repository }}/coffee-api:${{ github.sha }}
 
   test:
+    defaults:
+      run:
+        working-directory: ./CoffeeAPI
     name: Run Unit and Integration Tests
     runs-on: ubuntu-latest
     needs: build-and-push
