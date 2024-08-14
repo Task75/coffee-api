@@ -20,6 +20,12 @@ jobs:
         working-directory: ./CoffeeAPI
 
     steps:
+    
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: 'python'
+
     - name: Checkout code
       uses: actions/checkout@v3
 
