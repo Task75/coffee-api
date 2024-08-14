@@ -19,6 +19,10 @@ persistence:
   accessMode: ReadWriteOnce
   size: 8Gi
 
+serviceAccount:
+  create: true
+  name: "my-service-account"
+  
 resources: {}
 
 nodeSelector: {}
