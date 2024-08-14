@@ -60,7 +60,7 @@ jobs:
     - name: Build Docker image
      
       run: |
-        docker build -t ghcr.io/${{ github.repository..toLowerCase() }}/coffee-api:${{ github.sha }} .
+        docker build -t ghcr.io/${{ github.repository.toLowerCase() }}/coffee-api:${{ github.sha }} .
 
     - name: Push Docker image
       run: |
