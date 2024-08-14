@@ -23,10 +23,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Install gitleaks
+      run: |
+        curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64.tar.gz | tar -xz -C /usr/local/bin gitleaks
+
+
     - name: Scan code for secrets
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "Security"
+      run: |
+        gitleaks detect --source . --verbose
+
+
+      #uses: github/codeql-action/analyze@v2
+      #with:
+       #category: "Security"
 
   build-and-push:
     name: Build and Push Docker Image
