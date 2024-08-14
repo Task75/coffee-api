@@ -57,10 +57,17 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Format repo slug
+      uses: actions/github-script@v4
+      id: repo_slug
+      with:
+        result-encoding: string
+        script: return `ghcr.io/${github.repository.toLowerCase()}`
+
     - name: Build Docker image
      
       run: |
-        docker build -t ghcr.io/${{ github.repository.toLowerCase() }}/coffee-api:${{ github.sha }} .
+        docker build -t ghcr.io/${{ steps.repo_slug.outputs.result }}/coffee-api:${{ github.sha }} .
 
     - name: Push Docker image
       run: |
