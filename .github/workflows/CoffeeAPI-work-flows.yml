@@ -17,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./CoffeeAPI
+        working-directory: . /CoffeeAPI
 
 
     steps:
