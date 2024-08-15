@@ -123,14 +123,14 @@ jobs:
 
     - name: Deploy PostgreSQL with Helm
       run: |
-        helm upgrade --install postgresql ./HelmCharts/Postgresql \
+        helm upgrade --install ./HelmCharts/Postgresql \
           --set postgresql.database=${{ vars.POSTGRESQL_DATABASE }} \
           --set postgresql.username=${{ vars.POSTGRESQL_USERNAME }} \
           --set postgresql.password=${{ secrets.POSTGRESQL_PASSWORD }}
 
     - name: Deploy application with Helm
       run: |
-        helm upgrade --install coffee-api ./HelmCharts/CoffeeService \
+        helm upgrade --install ./HelmCharts/CoffeeService \
           --set image.repository=ghcr.io/${{ github.repository }}/coffee-api \
           --set image.tag=${{ github.sha }} \
           --set postgresql.database=${{ vars.POSTGRESQL_DATABASE }} \
