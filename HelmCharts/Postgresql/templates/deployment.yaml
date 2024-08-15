@@ -33,12 +33,12 @@ spec:
         - name: data
           mountPath: /var/lib/postgresql/data
           subPath: postgres
+        resources:
+          {{ toYaml .Values.resources | indent 10 }}
       volumes:
       - name: data
         persistentVolumeClaim:
           claimName: {{ include "postgresql.fullname" . }}
-      resources:
-        {{ toYaml .Values.resources | indent 8 }}
 
 
 
