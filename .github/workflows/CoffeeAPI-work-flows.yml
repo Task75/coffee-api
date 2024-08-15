@@ -123,14 +123,14 @@ jobs:
 
     - name: Deploy PostgreSQL with Helm
       run: |
-        helm upgrade --install ./HelmCharts/Postgresql \
+        helm upgrade --install postgresql ./HelmCharts/Postgresql \
           --set postgresql.database=${{ vars.POSTGRESQL_DATABASE }} \
           --set postgresql.username=${{ vars.POSTGRESQL_USERNAME }} \
           --set postgresql.password=${{ secrets.POSTGRESQL_PASSWORD }}
 
     - name: Deploy application with Helm
       run: |
-        helm upgrade --install ./HelmCharts/CoffeeService \
+        helm upgrade --install coffee-api ./HelmCharts/CoffeeService \
           --set image.repository=ghcr.io/${{ github.repository }}/coffee-api \
           --set image.tag=${{ github.sha }} \
           --set postgresql.database=${{ vars.POSTGRESQL_DATABASE }} \
@@ -142,6 +142,6 @@ jobs:
         kubectl get services
         kubectl get deployments
 
-# kubectl port-forward svc/coffee-api 8000:8080 &
-        # sleep 20
-# curl -X POST http://localhost:8000/buy_coffee/ -d '{"payment_amount": 2.5}' -H "Content-Type: application/json"
+        kubectl port-forward svc/coffee-api-coffee-api 8000:8080 &
+        sleep 20
+        curl -X POST http://localhost:8000/buy_coffee/ -d '{"payment_amount": 2.5}' -H "Content-Type: application/json"
