@@ -3,9 +3,11 @@
 {{- end }}
 
 {{- define "coffee-api.fullname" -}}
-{{- $name := include "coffee-api.name" . -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- $releaseName := .Release.Name -}}
+{{- printf "%s-%s" $releaseName $name | trunc 63 | trimSuffix "-" -}}
 {{- end }}
+
 
 {{- define "coffee-api.labels" -}}
 app.kubernetes.io/name: {{ include "coffee-api.name" . }}

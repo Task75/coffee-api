@@ -139,7 +139,7 @@ jobs:
 
     - name: Check the service in Minikube
       run: |
-    
+        sleep 120
         kubectl get deployments
 
         kubectl port-forward svc/coffee-api-coffee-api 8000:8080 &
