@@ -5,12 +5,12 @@
 {{- define "coffee-api.fullname" -}}
 {{- if .Values.nameOverride -}}
 {{ .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- else -}}
+{{- else if and .Release.Name (ne .Release.Name .Chart.Name) -}}
 {{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{- else -}}
+{{ .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- end -}}
 {{- end }}
-
-
 
 {{- define "coffee-api.labels" -}}
 app.kubernetes.io/name: {{ include "coffee-api.name" . }}
@@ -25,4 +25,5 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- else -}}
 {{- default "default" .Values.serviceAccount.name -}}
 {{- end -}}
-{{- end -}}
+{{- end }}
+
