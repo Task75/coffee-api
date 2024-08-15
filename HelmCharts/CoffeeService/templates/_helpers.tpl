@@ -3,7 +3,7 @@
 {{- end }}
 
 {{- define "coffee-api.fullname" -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- $name := include "coffee-api.name" . -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end }}
 
