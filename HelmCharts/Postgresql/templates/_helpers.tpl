@@ -3,8 +3,13 @@
 {{- end }}
 
 {{- define "postgresql.fullname" -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- if .Values.nameOverride -}}
+{{ .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- else if and .Release.Name (ne .Release.Name .Chart.Name) -}}
+{{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{- else -}}
+{{ .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- end -}}
 {{- end }}
 
 {{- define "postgresql.labels" -}}

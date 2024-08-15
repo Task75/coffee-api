@@ -139,7 +139,7 @@ jobs:
     - name: Deploy application with Helm
       run: |
         helm upgrade --install coffee-api ./HelmCharts/CoffeeService \
-          --set image.repository=ghcr.io/${{ github.repository }}/coffee-api \
+          --set image.repository=ghcr.io/${{ github.repository }} \
           --set image.tag=${{ github.sha }} \
           --set postgresql.database=${{ vars.POSTGRESQL_DATABASE }} \
           --set postgresql.username=${{ vars.POSTGRESQL_USERNAME }} \
@@ -151,8 +151,8 @@ jobs:
         kubectl get svc
         kubectl get deployments
 
-        kubectl describe pod coffee-api-coffee-api
+        kubectl describe pod coffee-api
 
-        kubectl port-forward svc/coffee-api-coffee-api 8000:8080 &
+        kubectl port-forward svc/coffee-api 8000:8080 &
         sleep 20
         curl -X POST http://localhost:8000/buy_coffee/ -d '{"payment_amount": 2.5}' -H "Content-Type: application/json"

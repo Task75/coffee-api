@@ -22,9 +22,9 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.container.port}}
+        resources:
+          {{ toYaml .Values.resources | indent 10}}
         env:
         - name: DATABASE_URL
           value: "postgresql://{{ .Values.postgresql.username }}:{{ .Values.postgresql.password }}@{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}"
-        resources:
-          {{ toYaml .Values.resources | indent 10}}
 
