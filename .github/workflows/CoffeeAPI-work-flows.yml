@@ -147,7 +147,7 @@ jobs:
 
     - name: Check the service in Minikube
       run: |
-        sleep 200
+        sleep 120
         kubectl get svc
         kubectl get deployments
 
