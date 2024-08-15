@@ -130,7 +130,7 @@ jobs:
 
     - name: Deploy application with Helm
       run: |
-        helm upgrade --install coffee-api ./HelmCharts/coffee-api \
+        helm upgrade --install coffee-api ./HelmCharts/CoffeeService \
           --set image.repository=ghcr.io/${{ github.repository }}/coffee-api \
           --set image.tag=${{ github.sha }} \
           --set postgresql.database=${{ vars.POSTGRESQL_DATABASE }} \
