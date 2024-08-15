@@ -3,10 +3,13 @@
 {{- end }}
 
 {{- define "coffee-api.fullname" -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- $releaseName := .Release.Name -}}
-{{- printf "%s-%s" $releaseName $name | trunc 63 | trimSuffix "-" -}}
+{{- if .Values.nameOverride -}}
+{{ .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- else -}}
+{{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{- end -}}
 {{- end }}
+
 
 
 {{- define "coffee-api.labels" -}}
