@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: { { include "postgresql.fullname" . } }
-  labels: { { - include "postgresql.labels" . | nindent 4 } }
+  name: {{ include "postgresql.fullname" . }}
+  labels: {{- include "postgresql.labels" . | nindent 4 }}
 spec:
-  type: { { .Values.service.type } }
+  type: {{ .Values.service.type }}
   ports:
-    - port: { { .Values.postgresql.port } }
+    - port: {{ .Values.postgresql.port }}
       targetPort: 5432
   selector:
-    app.kubernetes.io/name: { { include "postgresql.name" . } }
-    app.kubernetes.io/instance: { { .Release.Name } }
+    app.kubernetes.io/name: {{ include "postgresql.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
