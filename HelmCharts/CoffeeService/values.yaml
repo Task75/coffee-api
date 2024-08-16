@@ -11,7 +11,7 @@ service:
   port: 8080
 
 postgresql:
-  host: my-postgresql.default.svc.cluster.local
+  host: postgresql.default.svc.cluster.local
   port: 5432
   database: coffee_db
   username: myuser
