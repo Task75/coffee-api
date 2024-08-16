@@ -149,13 +149,17 @@ jobs:
       run: |
         sleep 70
 
-        ping postgresql.default.svc.cluster.local
+
 
         kubectl get svc
 
         kubectl get deployments
 
+        kubectl describe postgresql
+
         kubectl logs -p coffee-api
+
+        ping postgresql.default.svc.cluster.local
 
         kubectl port-forward svc/coffee-api 8000:8080 &
         sleep 20
