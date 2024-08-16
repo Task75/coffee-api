@@ -137,7 +137,6 @@ jobs:
           --set postgresql.password=${{ secrets.POSTGRESQL_PASSWORD }}
 
     - name: Deploy application with Helm
-      needs: Deploy PostgreSQL with Helm
       run: |
         helm upgrade --install coffee-api ./HelmCharts/CoffeeService \
           --set image.repository=ghcr.io/${{ github.repository }}/coffee-api \
