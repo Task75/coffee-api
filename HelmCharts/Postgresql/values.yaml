@@ -23,10 +23,10 @@ serviceAccount:
   create: true
   name: "my-service-account"
   
-resources: {}
+# resources: {}
 
-nodeSelector: {}
+# nodeSelector: {}
 
-tolerations: []
+# tolerations: []
 
-affinity: {}
+# affinity: {}
