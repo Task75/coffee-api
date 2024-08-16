@@ -147,7 +147,6 @@ jobs:
 
     - name: Check the service in Minikube
       run: |
-        sleep 70
 
 
 
@@ -155,7 +154,7 @@ jobs:
 
         kubectl get deployments
 
-        kubectl describe postgresql
+        kubectl describe pod postgresql
 
         kubectl logs -p coffee-api
 
