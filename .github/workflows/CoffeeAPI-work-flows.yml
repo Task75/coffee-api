@@ -156,9 +156,7 @@ jobs:
 
         kubectl describe pod postgresql
 
-        kubectl logs -p coffee-api
-
-        ping postgresql.default.svc.cluster.local
+        ping postgresql
 
         kubectl port-forward svc/coffee-api 8000:8080 &
         sleep 20
