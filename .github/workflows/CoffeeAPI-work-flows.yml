@@ -156,8 +156,6 @@ jobs:
 
         kubectl describe pod postgresql
 
-        ping postgresql
-
         kubectl port-forward svc/coffee-api 8000:8080 &
         sleep 20
         curl -X POST http://localhost:8000/buy_coffee/ -d '{"payment_amount": 2.5}' -H "Content-Type: application/json"
