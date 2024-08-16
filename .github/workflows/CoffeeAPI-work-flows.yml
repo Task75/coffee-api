@@ -150,6 +150,9 @@ jobs:
 
         sleep 150
 
+        ping postgresql.default.svc.cluster.local
+
+
         kubectl get svc
 
         kubectl get deployments
