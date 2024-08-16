@@ -154,7 +154,7 @@ jobs:
 
         kubectl describe pod coffee-api
 
-        kubectl logs coffee-api
+        kubectl logs
 
         kubectl port-forward svc/coffee-api 8000:8080 &
         sleep 20
