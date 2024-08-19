@@ -149,15 +149,15 @@ jobs:
       run: |
 
         sleep 150
-        kubectl get pods -n kube-system -l k8s-app=kube-dns
+        #kubectl get pods -n kube-system -l k8s-app=kube-dns
 
-        
+        ping postgresql.svc.cluster.local
         # kubectl get svc
 
         # kubectl get deployments
 
         # kubectl describe pod coffee-api
 
-        # kubectl port-forward svc/coffee-api 8080:8080 &
+         kubectl port-forward svc/coffee-api 8080:8080 &
         
         curl -X POST http://localhost:8080/buy_coffee/ -d '{"payment_amount": 2.5}' -H "Content-Type: application/json"
