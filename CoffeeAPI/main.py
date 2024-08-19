@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from uuid import uuid4
 from datetime import datetime
@@ -12,9 +12,12 @@ from prometheus_client import Counter, Histogram
 
 # Строка подключения к базе данных
 DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://myuser:mypassword@localhost:5432/coffee_db')
+#DATABASE_URL = 'postgresql://postgres:123456789@localhost:5432/TestCoffee'
 
 # Создание движка и сессии для работы с базой данных
 engine = create_engine(DATABASE_URL)
+
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
@@ -34,7 +37,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 # Инициализация инструментатора для Prometheus
-instrumentator = Instrumentator()
+instrumentator = Instrumentator().instrument(app).expose(app)
 
 # Кастомные метрики
 coffee_request_counter = Counter(
@@ -91,17 +94,17 @@ def buy_coffee(payment: Payment):
     }
 
 # Запуск инструментатора при старте приложения
-@app.on_event("startup")
-def setup_prometheus():
-    instrumentator.instrument(app).expose(app)
+# @app.on_event("startup")
+# def setup_prometheus():
+#     instrumentator.instrument(app).expose(app)
     
-    # Если нужно добавить кастомные метрики вручную
-    instrumentator.add(
-        lambda: coffee_request_counter
-    )
-    instrumentator.add(
-        lambda: request_latency
-    )
+#     # Если нужно добавить кастомные метрики вручную
+#     instrumentator.add(
+#         lambda: coffee_request_counter
+#     )
+#     instrumentator.add(
+#         lambda: request_latency
+#     )
 
     # Обновление метрик
     # Вы можете также обновить метрики по мере необходимости
