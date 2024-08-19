@@ -27,7 +27,7 @@ spec:
           value: "{{ .Values.postgresql.username }}"
         - name: POSTGRES_PASSWORD
           value: "{{ .Values.postgresql.password }}"
-        - name: POSTGRES_DB
+        - name: POSTGRES_DATABASE
           value: "{{ .Values.postgresql.database }}"
         volumeMounts:
         - name: data

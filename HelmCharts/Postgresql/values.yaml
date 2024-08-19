@@ -1,6 +1,6 @@
 image:
   repository: bitnami/postgresql
-  tag: 13.4.0
+  tag: latest
   pullPolicy: IfNotPresent
 
 postgresql:
@@ -17,7 +17,7 @@ persistence:
   enabled: true
   storageClass: ""
   accessMode: ReadWriteOnce
-  size: 8Gi
+  size: 1Gi
 
 serviceAccount:
   create: true
